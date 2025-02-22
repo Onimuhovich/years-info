@@ -5,11 +5,62 @@
     "node": "22.13.0",
     "npm": "10.9.2"
   },
-  "scripts": {
+  "config": {
+    "dev": "--config ./dev.config.js",
+    "prod": "--config ./prod.config.js"
   },
-  "license": "ISC",
+  "scripts": {
+    "start-dev": "cross-env-shell webpack serve ${npm_package_config_dev}",
+    "start-prod": "cross-env-shell webpack serve ${npm_package_config_prod}",
+    "build-dev": "cross-env-shell webpack ${npm_package_config_dev}",
+    "build-prod": "cross-env-shell webpack ${npm_package_config_prod} --stats-children",
+    "clean": "rd /s /q build",
+    "lint": "eslint src --ext .js --ext .ts",
+    "lint-fix": "eslint src --ext .js --ext .ts --fix"
+  },
   "devDependencies": {
+    "@babel/core": "^7.26.9",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-react": "^7.26.3",
+    "@babel/preset-typescript": "^7.26.0",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.5",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@typescript-eslint/eslint-plugin": "^8.24.1",
+    "@typescript-eslint/parser": "^8.24.1",
+    "babel-loader": "^9.2.1",
+    "cross-env": "^7.0.3",
+    "css-loader": "^7.1.2",
+    "eslint": "^9.21.0",
+    "eslint-plugin-react": "^7.37.4",
+    "favicons-webpack-plugin": "^6.0.1",
+    "filemanager-webpack-plugin": "^8.0.0",
+    "html-loader": "^5.1.0",
+    "html-webpack-plugin": "^5.6.3",
+    "image-minimizer-webpack-plugin": "^4.1.3",
+    "imagemin": "^9.0.0",
+    "imagemin-gifsicle": "^7.0.0",
+    "imagemin-jpegtran": "^8.0.0",
+    "imagemin-optipng": "^8.0.0",
+    "imagemin-svgo": "^11.0.1",
+    "jest": "^29.7.0",
+    "mini-css-extract-plugin": "^2.9.2",
+    "postcss-loader": "^8.1.1",
+    "postcss-preset-env": "^10.1.4",
+    "sass-loader": "^16.0.5",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.7.3",
+    "typescript-plugin-css-modules": "^5.1.0",
     "webpack": "^5.98.0",
-    "webpack-cli": "^6.0.1"
-  }
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0",
+    "webpack-merge": "^6.0.1"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "license": "ISC"
 }
