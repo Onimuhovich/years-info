@@ -1,8 +1,9 @@
 import React from "react";
+import YearsInfo from "./widgets/years-info";
 
 const App: React.FC = () => {
   return (
-    <div>Hello world</div>
+    <YearsInfo />
   );
 }
 

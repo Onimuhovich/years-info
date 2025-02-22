@@ -88,10 +88,7 @@ module.exports = {
         use: ["html-loader"],
       },
       {
-        test: /\.(s[ac]|c)ss$/i,
-      },
-      {
-        test: /\.(s[ac]|c)ss$/i,
+        test: /\.s[ac]ss$/i,
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -122,7 +119,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(s[ac])ss$/i,
+        test: /\.s[ac]ss$/i,
         use: ["sass-loader"],
       },
       {
@@ -154,7 +151,6 @@ module.exports = {
     },
     port: 3000,
     open: true,
-    hot: true,
     client: {
       overlay: {
         errors: true,

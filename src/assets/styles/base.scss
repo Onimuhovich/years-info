@@ -1,0 +1,13 @@
+@use "./font.scss";
+@use "./normalize.scss";
+@use "./variables.scss";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 14px;
+  line-height: 20.3px;
+  color: var(--color-blue-200);
+}
