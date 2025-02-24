@@ -34,6 +34,9 @@ const YearsInfo: React.FC<TProps> = ({
           <div className={styles.startYear}>{selectedPeriod.items[0].year}</div>
           <div className={styles.endYear}>{selectedPeriod.items.at(-1)?.year}</div>
         </div>
+        <div className={styles.circle}>
+          <div className={styles.dot}></div>
+        </div>
       </div>
     </div>
   )
