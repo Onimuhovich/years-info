@@ -3,29 +3,12 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
-const FileManagerPlugin = require("filemanager-webpack-plugin");
 const { HotModuleReplacementPlugin } = require("webpack");
 
 const BUILD_DIR = path.resolve(__dirname, "build");
 const PUBLIC_DIR = path.resolve(__dirname, "public");
-const STATIC_DIR = path.resolve(__dirname, "static");
 
 const plugins = [
-  new FileManagerPlugin({
-    events: {
-      onStart: {
-        delete: [BUILD_DIR],
-      },
-      onEnd: {
-        copy: [
-          {
-            source: STATIC_DIR,
-            destination: BUILD_DIR,
-          },
-        ],
-      },
-    },
-  }),
   new HtmlWebpackPlugin({
     template: path.join(PUBLIC_DIR, "index.html"),
     filename: "index.html",
@@ -88,7 +71,17 @@ module.exports = {
         use: ["html-loader"],
       },
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.(scss|css)$/i,
+        exclude: /\.module\.(scss|css)$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
+        ],
+      },
+      {
+        test: /\.module\.(scss|css)$/i,
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -96,37 +89,20 @@ module.exports = {
             options: {
               esModule: true,
               modules: {
-                localIdentName: "[name]__[local]__[hash:base64:5]",
                 namedExport: true,
+                localIdentName: "[name]__[local]__[hash:base64:5]",
               },
             },
           },
-          {
-            loader: "postcss-loader",
-            options: {
-              postcssOptions: {
-                plugins: [
-                  [
-                    "postcss-preset-env",
-                    {
-                      // Options
-                    },
-                  ],
-                ],
-              },
-            },
-          },
+          "postcss-loader",
+          "sass-loader",
         ],
-      },
-      {
-        test: /\.s[ac]ss$/i,
-        use: ["sass-loader"],
       },
       {
         test: /\.(png|jpe?g|gif|svg|webp|ico)$/i,
         type: "asset/resource",
         generator: {
-          filename: "assets/img/[hash][ext]",
+          filename: "assets/img/[hash].[ext]",
         },
       },
       {
@@ -134,7 +110,7 @@ module.exports = {
         exclude: /node_modules/,
         type: "asset/resource",
         generator: {
-          filename: "assets/fonts/[hash][ext]",
+          filename: "assets/fonts/[hash]/[ext]",
         },
       },
     ],
@@ -146,20 +122,16 @@ module.exports = {
     },
   },
   devServer: {
-    static: {
-      directory: path.join(__dirname, 'build'),
-    },
     port: 3000,
     open: true,
+    hot: false,
+    liveReload: true,
     client: {
       overlay: {
         errors: true,
         warnings: true,
       },
       progress: true,
-    },
-    devMiddleware: {
-      writeToDisk: true,
     },
   },
 };
