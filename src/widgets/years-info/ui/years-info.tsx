@@ -27,10 +27,13 @@ const YearsInfo: React.FC<TProps> = ({
   periods = [],
 }) => {
   const refCircle = useRef<null | HTMLDivElement>(null);
-  const [selectedPeriod, setSelectedPeriod] = useState(periods[0]);
+
+  const [periodKey, setPeriodKey] = useState(0);
   const [circleRadius, setCircleRadius] = useState(0);
-  const angleRange = useMemo(() => 360 / periods.length, [periods]);
   const [rotate, setRotate] = useState(0);
+
+  const angleRange = useMemo(() => 360 / periods.length, [periods]);
+  const lastKey = useMemo(() => periods.length - 1, [periods]);
 
   useEffect(() => {
     if (!refCircle.current) return;
@@ -38,13 +41,29 @@ const YearsInfo: React.FC<TProps> = ({
     setCircleRadius(refCircle.current.offsetWidth / 2);
   }, []);
 
-  if (!selectedPeriod) {
+  if (!periods[periodKey]) {
     return null;
   }
 
   const changeRotate = (key: number) => {
-    setSelectedPeriod(periods[key]);
+    setPeriodKey(key);
     setRotate(angleRange * key);
+  }
+
+  const setNextPeriod = () => {
+    if (periodKey === lastKey) {
+      changeRotate(0);
+    } else {
+      changeRotate(periodKey + 1);
+    }
+  }
+
+  const setPrevPeriod = () => {
+    if (periodKey === 0) {
+      changeRotate(lastKey);
+    } else {
+      changeRotate(periodKey - 1);
+    }
   }
 
   return (
@@ -53,10 +72,10 @@ const YearsInfo: React.FC<TProps> = ({
         <div className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />
         <div className={styles.period}>
           <div className={styles.startYear}>
-            <VisualCount num={selectedPeriod.items[0].year} />
+            <VisualCount num={periods[periodKey].items[0].year} />
           </div>
           <div className={styles.endYear}>
-            <VisualCount num={selectedPeriod.items.at(-1)?.year as number} />
+            <VisualCount num={periods[periodKey].items.at(-1)?.year as number} />
           </div>
         </div>
         <div
@@ -75,7 +94,7 @@ const YearsInfo: React.FC<TProps> = ({
                 value={item.type}
                 num={n + 1}
                 onChange={() => changeRotate(n)}
-                checked={selectedPeriod.type === item.type}
+                checked={periods[periodKey].type === item.type}
                 style={{
                   translate: `
                     calc((cos(${anglePoint}deg) * ${-circleRadius}px) - 50%)
@@ -88,10 +107,12 @@ const YearsInfo: React.FC<TProps> = ({
           })}
         </div>
         <div className={styles.navBar}>
-          <div className={styles.pagination}>{}/{periods.length}</div>
+          <div className={styles.pagination}>
+            {String(periodKey + 1).padStart(2, '0')}/{String(periods.length).padStart(2, '0')}
+          </div>
           <div className={styles.navButtons}>
-            <NavButton></NavButton>
-            <NavButton></NavButton>
+            <NavButton className={styles.prevBtn} onClick={setPrevPeriod} />
+            <NavButton onClick={setNextPeriod} />
           </div>
         </div>
       </div>

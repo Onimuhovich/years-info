@@ -119,13 +119,21 @@
 }
 
 .navBar {
-  display: block;
+  width: fit-content;
+  margin-top: 393px;
+  padding-left: 79px;
 }
 
 .pagination {
-  display: block;
+  line-height: 18.12px;
+  margin-bottom: 20px;
 }
 
 .navButtons {
-  display: block;
+  display: flex;
+  column-gap: 20px; 
+}
+
+.prevBtn {
+  rotate: 180deg;
 }

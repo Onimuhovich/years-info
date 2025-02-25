@@ -47,7 +47,6 @@ module.exports = {
   output: {
     filename: "build.js",
     path: BUILD_DIR,
-    publicPath: "/",
   },
   performance: {
     hints: false,
