@@ -57,31 +57,16 @@ module.exports = {
     strictExportPresence: true,
     rules: [
       {
-        test: /\.[jt]sx?$/,
+        test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            cacheDirectory: true, // Using a cache to avoid of recompilation
-          },
-        },
+        use: "babel-loader",
       },
       {
         test: /\.(html)$/,
         use: ["html-loader"],
       },
       {
-        test: /\.(scss|css)$/i,
-        exclude: /\.module\.(scss|css)$/i,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          "postcss-loader",
-          "sass-loader",
-        ],
-      },
-      {
-        test: /\.module\.(scss|css)$/i,
+        test: /\.(s[ac]|c)ss$/i,
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -116,10 +101,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx"],
-    alias: {
-      '@*': path.resolve(__dirname, 'src/*'),
-    },
+    extensions: [".ts", ".tsx", ".js"],
   },
   devServer: {
     port: 3000,

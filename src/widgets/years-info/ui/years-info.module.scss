@@ -1,20 +1,18 @@
 .parent {
   width: 100%;
-  min-height: 100vh;
   padding-right: 8.33%;
   padding-left: 16.66%;
-  background-color: var(--color-grey-200);
 }
 
 .container {
   border-width: 0 1px;
   border-color: var(--color-blue-200-10);
   border-style: solid;
-  min-height: 100vh;
 
   @media (min-width: 1280px) {
     padding: 170px 0 104px;
     position: relative;
+    min-height: 1080px;
 
     &::after,
     &::before {
@@ -107,24 +105,27 @@
     position: absolute;
     top: 215px;
     left: 50%;
-    transform: translateX(-50%);
+    translate: -50%;
+    transform-origin: center;
+    transition: transform 1s cubic-bezier(.17,.67,.19,.99);
   }
 }
 
 .dot {
-  --angle: 180deg;
-  --radius: -265px;
-  --dot-size: 25px;
-
-  width: var(--dot-size);
-  height: var(--dot-size);
-  border-radius: 50%;
-  background-color: var(--color-pink-100);
   position: absolute;
-  top: calc(50% - (var(--dot-size) / 2));
-  left: calc(50% - (var(--dot-size) / 2));
-  transform: translate(
-    calc(cos(var(--angle)) * var(--radius)),
-    calc(sin(var(--angle)) * var(--radius))
-  );
+  top: 50%;
+  left: 50%;
+  transition: rotate 1s cubic-bezier(.17,.67,.19,.99);
+}
+
+.navBar {
+  display: block;
+}
+
+.pagination {
+  display: block;
+}
+
+.navButtons {
+  display: block;
 }
