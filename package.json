@@ -14,9 +14,7 @@
     "start-prod": "cross-env-shell webpack serve ${npm_package_config_prod}",
     "build-dev": "cross-env-shell webpack ${npm_package_config_dev}",
     "build-prod": "cross-env-shell webpack ${npm_package_config_prod} --stats-children",
-    "clean": "rd /s /q build",
-    "lint": "eslint src --ext .js --ext .ts",
-    "lint-fix": "eslint src --ext .js --ext .ts --fix"
+    "clean": "rd /s /q build"
   },
   "devDependencies": {
     "@babel/core": "^7.26.9",
@@ -34,8 +32,6 @@
     "babel-loader": "^9.2.1",
     "cross-env": "^7.0.3",
     "css-loader": "^7.1.2",
-    "eslint": "^9.21.0",
-    "eslint-plugin-react": "^7.37.4",
     "favicons-webpack-plugin": "^6.0.1",
     "filemanager-webpack-plugin": "^8.0.0",
     "html-loader": "^5.1.0",
