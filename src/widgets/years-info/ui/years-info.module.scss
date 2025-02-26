@@ -1,18 +1,34 @@
 .parent {
   width: 100%;
-  padding-right: 8.33%;
-  padding-left: 16.66%;
+
+  @media (max-width: 1279px) {
+    padding: 59px 20px 12px;
+  }
+
+  @media (min-width: 1441px) {
+    padding-left: 8.66%;
+    padding-right: 4.33%;
+  }
+
+  @media (min-width: 1600px) {
+    padding-left: 16.66%;
+    padding-right: 8.33%;
+  }
 }
 
 .container {
-  border-width: 0 1px;
-  border-color: var(--color-blue-200-10);
-  border-style: solid;
+  @media (max-width: 1279px) {
+    display: flex;
+    flex-direction: column;
+  }
 
   @media (min-width: 1280px) {
     padding: 170px 0 104px;
     position: relative;
     min-height: 1080px;
+    border-width: 0 1px;
+    border-color: var(--color-blue-200-10);
+    border-style: solid;
 
     &::after,
     &::before {
@@ -43,28 +59,29 @@
   font-size: 20px;
   line-height: 24px;
   font-weight: 700;
-  padding-left: 79px;
-  position: relative;
-
-  &::after {
-    content: "";
-    display: block;
-    height: calc(100% - 14px);
-    width: 5px;
-    background: linear-gradient(to bottom, var(--color-blue-100), var(--color-pink-200)) no-repeat;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-  }
 
   @media (max-width: 1279px) {
     margin-bottom: 56px;
+    order: 1;
   }
 
   @media (min-width: 1280px) {
     font-size: 56px;
     line-height: 67.2px;
+    padding-left: 79px;
+    position: relative;
+
+    &::after {
+      content: "";
+      display: block;
+      height: calc(100% - 14px);
+      width: 5px;
+      background: linear-gradient(to bottom, var(--color-blue-100), var(--color-pink-200)) no-repeat;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
   }
 }
 
@@ -72,6 +89,16 @@
   font-size: 56px;
   line-height: 72px;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 273px;
+
+  @media (max-width: 1279px) {
+    padding-bottom: 57px;
+    order: 2;
+  }
 
   @media (min-width: 1280px) {
     font-size: 200px;
@@ -80,11 +107,7 @@
     top: 400px;
     left: 50%;
     transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     max-width: 974px;
-    width: 100%;
   }
 }
 
@@ -97,7 +120,10 @@
 }
 
 .circle {
+  display: none;
+
   @media (min-width: 1280px) {
+    display: block;
     width: 529px;
     height: 529px;
     border-radius: 50%;
@@ -120,18 +146,33 @@
 
 .navBar {
   width: fit-content;
-  margin-top: 393px;
-  padding-left: 79px;
+
+  @media (max-width: 1279px) {
+    order: 5;
+  }
+
+  @media (min-width: 1280px) {
+    margin-top: 393px;
+    padding-left: 79px;
+  }
 }
 
 .pagination {
   line-height: 18.12px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+
+  @media (min-width: 1280px) {
+    margin-bottom: 20px;
+  }
 }
 
 .navButtons {
   display: flex;
-  column-gap: 20px; 
+  column-gap: 8px;
+  
+  @media (min-width: 1280px) {
+    column-gap: 20px;
+  }
 }
 
 .prevBtn {
@@ -139,5 +180,26 @@
 }
 
 .slider {
-  display: block;
+  @media (max-width: 1279px) {
+    margin-bottom: 78px;
+    order: 4;
+    padding-top: 19px;
+    border-top: 1px solid var(--color-grey-100);
+  }
+
+  @media (min-width: 1280px) {
+    margin-top: 56px;
+  }
+}
+
+.periodName {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 700;
+  order: 3;
+  margin-bottom: 16px;
+
+  @media (min-width: 1280px) {
+    display: none;
+  }
 }

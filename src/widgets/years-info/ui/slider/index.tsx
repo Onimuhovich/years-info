@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide, } from "swiper/react";
 import { FreeMode, Navigation } from "swiper/modules";
 import cn from "classnames";
@@ -18,30 +18,50 @@ const Slider: React.FC<TProps> = ({
   className,
   items = [],
 }) => {
+  const refParent = useRef<null | HTMLDivElement>(null);
+  const [currentItems, setCurrentItems] = useState(items);
+
+  useEffect(() => {
+    const classParent = "slider-view";
+
+    setTimeout(() => {
+      if (!refParent.current) return;
+
+      setCurrentItems(items);
+      refParent.current.classList.add(classParent);
+    }, 500);
+
+    return () => {
+      if (!refParent.current) return;
+
+      refParent.current.classList.remove(classParent);
+    }
+  }, [items]);
+
   return (
-    <div className={cn(styles.parent, className)}>
+    <div ref={refParent} className={cn(styles.parent, className)}>
       <Swiper
+        className={styles.slider}
         modules={[FreeMode, Navigation]}
         spaceBetween={25}
         navigation={{
-          nextEl: styles.nextBtn,
-          prevEl: styles.prevBtn,
+          nextEl: `.${styles.nextBtn}`,
+          prevEl: `.${styles.prevBtn}`,
         }}
         freeMode
         slidesPerView="auto"
         breakpoints={{
           [MEDIA_SIZES.BIG_DESKTOP]: {
             spaceBetween: 80,
-            slidesPerView: 3,
           }
         }}
       >
-        {items.map((item) => {
+        {currentItems.map((item) => {
           return (
             <SwiperSlide key={item.year} className={styles.slide}>
               <div className={styles.year}>{item.year}</div>
               {item.description && (
-                <div>{item.description}</div>
+                <div className={styles.description}>{item.description}</div>
               )}
             </SwiperSlide>
           )

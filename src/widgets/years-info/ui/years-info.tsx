@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import debounce from "lodash/debounce";
 import RadioButton from "./dot";
 import VisualCount from "./visual-count";
 import NavButton from "@/shared/ui/nav-button";
+import Slider from "./slider";
 
 import * as styles from "./years-info.module.scss";
-import Slider from "./slider";
 
 const ANGLE_FIRST_POINT = 120;
 
@@ -37,9 +38,18 @@ const YearsInfo: React.FC<TProps> = ({
   const lastKey = useMemo(() => periods.length - 1, [periods]);
 
   useEffect(() => {
-    if (!refCircle.current) return;
+    const setRadius = debounce(() => {
+      if (!refCircle.current) return;
 
-    setCircleRadius(refCircle.current.offsetWidth / 2);
+      setCircleRadius(refCircle.current.offsetWidth / 2);
+    }, 300);
+
+    setRadius();
+
+    window.addEventListener('resize', setRadius);
+    return () => {
+      window.removeEventListener('resize', setRadius);
+    }
   }, []);
 
   if (!periods[periodKey]) {
@@ -116,6 +126,8 @@ const YearsInfo: React.FC<TProps> = ({
             <NavButton onClick={setNextPeriod} />
           </div>
         </div>
+        <div className={styles.periodName}>{periods[periodKey].type}</div>
+        
         <Slider className={styles.slider} items={periods[periodKey].items} />
       </div>
     </div>

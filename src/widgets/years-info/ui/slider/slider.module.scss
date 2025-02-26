@@ -1,5 +1,15 @@
 .parent {
-  margin-top: 56px;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+
+  @media (min-width: 1280px) {
+    padding: 0 80px;
+    position: relative;
+  }
+
+  &:global(.slider-view) {
+    opacity: 1;
+  }
 }
 
 .nextBtn,
@@ -10,6 +20,28 @@
   width: 40px;
   height: 40px;
   border-color: transparent;
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  transition: opacity .3s ease;
+
+  &:disabled {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @media (max-width: 1279px) {
+    display: none;
+  }
+}
+
+.prevBtn {
+  left: 20px;
+  rotate: 180deg;
+}
+
+.nextBtn {
+  right: 20px;
 }
 
 .year {
@@ -18,6 +50,22 @@
   font-family: var(--ff-bebas-neue);
   font-size: 16px;
   line-height: 19px;
+
+  @media (min-width: 1280px) {
+    font-size: 25px;
+    line-height: 30px;
+  }
+}
+
+.description {
+  @media (min-width: 1280px) {
+    font-size: 20px;
+    line-height: 30px;
+  }
+}
+
+.slider {
+  display: block;
 }
 
 .slide {
