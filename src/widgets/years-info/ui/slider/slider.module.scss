@@ -1,0 +1,29 @@
+.parent {
+  margin-top: 56px;
+}
+
+.nextBtn,
+.prevBtn {
+  color: var(--color-blue-100);
+  background-color: var(--color-white-100);
+  box-shadow: 0 0 15px var(--color-blue-100-10);
+  width: 40px;
+  height: 40px;
+  border-color: transparent;
+}
+
+.year {
+  color: var(--color-blue-100);
+  margin-bottom: 15px;
+  font-family: var(--ff-bebas-neue);
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.slide {
+  width: 166px;
+
+  @media (min-width: 1280px) {
+    width: 320px;
+  }
+}

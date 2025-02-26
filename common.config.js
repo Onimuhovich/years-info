@@ -66,6 +66,7 @@ module.exports = {
       },
       {
         test: /\.(s[ac]|c)ss$/i,
+        exclude: /node_modules/,
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -78,6 +79,16 @@ module.exports = {
               },
             },
           },
+          "postcss-loader",
+          "sass-loader",
+        ],
+      },
+      {
+        test: /\.(s[ac]|c)ss$/i,
+        include: /node_modules/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
           "postcss-loader",
           "sass-loader",
         ],
@@ -101,6 +112,9 @@ module.exports = {
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
+    alias: {
+      "@*": path.resolve(__dirname, "src/*"),
+    }
   },
   devServer: {
     port: 3000,

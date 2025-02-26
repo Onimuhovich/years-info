@@ -1,13 +1,14 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import RadioButton from "./dot";
 import VisualCount from "./visual-count";
-import NavButton from "../../../shared/ui/nav-button";
+import NavButton from "@/shared/ui/nav-button";
 
 import * as styles from "./years-info.module.scss";
+import Slider from "./slider";
 
 const ANGLE_FIRST_POINT = 120;
 
-type TPeriodItem = {
+export type TPeriodItem = {
   year: number
   description?: string
 }
@@ -115,6 +116,7 @@ const YearsInfo: React.FC<TProps> = ({
             <NavButton onClick={setNextPeriod} />
           </div>
         </div>
+        <Slider className={styles.slider} items={periods[periodKey].items} />
       </div>
     </div>
   )
